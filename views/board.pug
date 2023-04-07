@@ -1,0 +1,25 @@
+extends layout
+
+block content
+	h1=title
+	- let cols = Number(query.cols) 
+	- let rows = Number(query.rows)
+	p Number of cols: #{cols} <br> Number of rows: #{rows}
+	- if (!Number.isInteger(rows)) {
+		p Rows number is not an integer! 
+	- } else if (!Number.isInteger(cols)) {
+		p Column number is not an integer value! 
+	- } else if (rows < 1 || rows > 10) {
+		p Rows should be in range of 1 to 10.
+	- } else if (cols < 1 || cols > 10) {
+		p Cols should be in range of 1 to 10.
+	- } else {
+		table#outer 
+			- for(let i = 0; i < rows; i++) {
+				tr#middle
+					- for(let j = 0; j < cols; j++) {
+						- let number = (i === j) ? 1 : ((j < i) ? 0 : j - i + 1)
+						td(style='border:2px solid black')= `${number} `
+					- }
+			- }
+	- }

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+	h1= title
+	p This is #{title}. Welcome to my Webpage.
+	a(class='btn btn-primary' onclick="doReduce()" type='button') Press Me
+	div(id='reduce') Bump the count.
+	script.
+		let change = -1;
+		let count = 20;
+		function doReduce() {
+			count += change;
+			change --;
+			document.getElementById('reduce').innerHTML = `Count ${count} | Change ${change}`;
+		}
+	br
+	a(href="/education" type='button' class='btn btn-success') Education 
+	  
+
+    

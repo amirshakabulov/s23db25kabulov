@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1=title
+  - let results = [{Level: "High School |", Type: "GED", Cost: 100,},{Level: "University |", Type: "Bachelor's", Cost: 60000,},{Level: "Grad School |", Type: "PHD", Cost: 20000,},];
+  div(class='container-fluid')
+    div(class='row')
+      - let item_num = 0;
+      each items in results
+        - let item_description = ""
+        each val, key in items
+          - item_description = `${item_description} ${key}: ${val}`
+          br
+        div(class='col-sm-2' type = 'button' onclick = 'buy()') #{item_description}
+        - item_num = item_num + 1;
+    br
+    script.
+        function buy(){
+            alert("You purchased an item!")
+        }
+        
