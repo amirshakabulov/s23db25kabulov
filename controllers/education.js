@@ -16,6 +16,7 @@ exports.education_detail = async function(req, res) {
 	console.log("detail" + req.params.id)
 	try {
 		result = await Education.findById( req.params.id)
+		console.log(result, "check")
 		res.send(result)
 	} catch (error) {
 	res.status(500)
@@ -56,15 +57,23 @@ exports.education_delete = async function(req, res) {
 exports.education_update_put = async function(req, res) {
 	console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
 	try {
-		let toUpdate = await Education.findById( req.params.id)
+		let toUpdate = await Education.findById(req.params.id);
+		console.log(toUpdate, "check for item")
 		// Do updates of properties
-		if(req.body.educationlevel) toUpdate.level = req.body.educationlevel;
-		if(req.body.educationtype) toUpdate.type = req.body.educationtype;
-		console.log("check1"+ req.body.cost)
-		if(req.body.educationcost) toUpdate.cost = req.body.educationcost;
-		let result = await toUpdate.save();
-		console.log("Sucess " + result)
-		res.send(result)
+		if(req.body.educationlevel) toUpdate.Level = req.body.educationlevel;
+		if(req.body.educationtype) toUpdate.Type = req.body.educationtype;
+		console.log(req.body.educationcost, "check2")
+		if(req.body.educationcost) toUpdate.Cost = req.body.educationcost;
+		console.log(toUpdate, "check for update")
+		try{
+			let result = await toUpdate.save();
+			console.log("Sucess " + result)
+			res.send(result)
+
+	}
+		catch(error){
+			console.log(error, "error here")
+		}
 	} catch (err) {
 		res.status(500)
 		// alert("Invalid numer of scoops")
@@ -84,3 +93,4 @@ exports.education_view_all_Page = async function(req, res) {
 		res.send(`{"error": ${err}}`);
 	}
    };
+
