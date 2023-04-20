@@ -1,0 +1,25 @@
+extends layout
+block content
+  h1= title
+
+  - let educationid = toShow._id
+  - let educationlevel = toShow.Level
+  - let educationtype = toShow.Type
+  - let educationcost = toShow.Cost 
+  div
+    br
+    div.row
+      div(id='Bonus' class='educationAttr mr-3') education ID is:
+      div(id='BonusContent') #{educationid}
+      br
+    div.row
+      div(id='Bonus' class='educationAttr mr-3') education Level is:
+      div(id='BonusContent') #{educationlevel}
+      br
+    div.row
+      div(id='Bonus' class='educationAttr mr-3') education Type is:
+      div(id='BonusContent') #{educationtype}
+      br
+    div.row
+      div(id='Bonus' class='educationAttr mr-3') education Cost is:
+      div(id='BonusContent') #{educationcost}

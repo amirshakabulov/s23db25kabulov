@@ -1,0 +1,44 @@
+extends layout
+block content
+  div(id="error") 
+  h1= title
+ 
+  - let educationid = toShow._id
+  - let educationlevel = toShow.Level
+  - let educationtype = toShow.Type
+  - let educationcost = toShow.Cost 
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{educationid}
+  - let actionid = "/resource/education/" + educationid
+  form(id='educationForm', action= actionid, method="PUT")
+    div.form-group
+      label.educationAttr(for='Level') education level
+      input#education_level(type='text', name='Level', value= educationlevel )
+    div.form-group
+      label.educationAttr(for='Type') education type
+      input#type(type='text', name='Type', value= educationtype )
+    div.form-group
+      label.educationAttr(for='Cost') education cost
+      input#cost(type='number', name='Cost', value= educationcost )
+    input(type="submit")
+  script.
+    document.forms['educationForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+
+        alert("Update failed " + error );
+
+      });
+    });

@@ -12,6 +12,7 @@ exports.education_list = async function(req, res) {
 	}
    };
 // for a specific Education.
+//a little different in mine assinfo
 exports.education_detail = async function(req, res) {
 	console.log("detail" + req.params.id)
 	try {
@@ -46,7 +47,7 @@ exports.education_create_post = async function(req, res) {
 exports.education_delete = async function(req, res) {
 	console.log("delete " + req.params.id)
 	try {
-	result = await Education.findByIdAndDelete( req.params.id)
+	result = await Education.findByIdAndDelete(req.params.id)
 	console.log("Removed " + result)
 	res.send(result)
 	} catch (err) {
@@ -81,6 +82,7 @@ exports.education_update_put = async function(req, res) {
 	}
    };
 
+
 // VIEWS
 // Handle a show all view
 exports.education_view_all_Page = async function(req, res) {
@@ -93,4 +95,58 @@ exports.education_view_all_Page = async function(req, res) {
 		res.send(`{"error": ${err}}`);
 	}
    };
+// Handle a show one view with id specified by query
+exports.education_view_one_Page = async function(req, res) {
+	console.log("single view for id " + req.query.id)
+	try{
+	result = await Education.findById( req.query.id)
+	res.render('educationdetail',
+   { title: 'Education Detail', toShow: result });
+	}
+	catch(err){
+	res.status(500)
+	res.send(`{'error': '${err}'}`);
+	}
+   };
 
+// Handle building the view for creating a education.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.education_create_Page = function(req, res) {
+	console.log("create view")
+	try{
+	res.render('educationcreate', { title: 'education Create'});
+	}
+	catch(err){
+	res.status(500)
+	res.send(`{'error': '${err}'}`);
+	}
+	};
+	
+// Handle building the view for updating a Education.
+// query provides the id
+exports.education_update_Page = async function(req, res) {
+	console.log("update view for item "+req.query.id)
+	try{
+	let result = await Education.findById(req.query.id)
+	res.render('educationupdate', { title: 'Education Update', toShow: result });
+	}
+	catch(err){
+	res.status(500)
+	res.send(`{'error': '${err}'}`);
+	}
+	};
+	// Handle a delete one view with id from query
+	exports.education_delete_Page = async function(req, res) {
+	console.log("Delete view for id " + req.query.id)
+	try{
+	result = await Education.findById(req.query.id)
+	res.render('educationdelete', { title: 'Education Delete', toShow: result });
+	}
+	catch(err){
+	res.status(500)
+	res.send(`{'error': '${err}'}`);
+	}
+	};
+	
+	
