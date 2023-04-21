@@ -1,20 +1,37 @@
 extends layout
 
+//- block content
+//- 	h1= title
+//- 	p This is #{title}. Welcome to my Webpage.
+//- 	a(class='btn btn-primary' onclick="doReduce()" type='button') Press Me
+//- 	div(id='reduce') Bump the count.
+//- 	script.
+//- 		let change = -1;
+//- 		let count = 20;
+//- 		function doReduce() {
+//- 			count += change;
+//- 			change --;
+//- 			document.getElementById('reduce').innerHTML = `Count ${count} | Change ${change}`;
+//- 		}
+//- 	br
+//- 	a(href="/education" type='button' class='btn btn-success') Education 
+
 block content
-	h1= title
-	p This is #{title}. Welcome to my Webpage.
-	a(class='btn btn-primary' onclick="doReduce()" type='button') Press Me
-	div(id='reduce') Bump the count.
-	script.
-		let change = -1;
-		let count = 20;
-		function doReduce() {
-			count += change;
-			change --;
-			document.getElementById('reduce').innerHTML = `Count ${count} | Change ${change}`;
-		}
-	br
-	a(href="/education" type='button' class='btn btn-success') Education 
+  h1= title
+  - let items = [{Level: "High School |", Type: "GED", Cost: 100,},{Level: "University |", Type: "Bachelor's", Cost: 60000,},{Level: "Grad School |", Type: "PHD", Cost: 20000,},]
+  div(class="container-fluid")
+    div(class="row m-1")
+      each item in items
+        - let destination = `dispatch(\"/education/update?id=${item._id}\")`
+        div(class="row-sm-2 m-1") Item #{item.Level}(#{item.Type}) is #{item.Cost}
+        button.btn(class="btn-primary ml-1" onclick=destination) Update
+  script.
+    function dispatch(){
+      window.location.href = "/update";
+    }
+
+
+
 	  
 
     
