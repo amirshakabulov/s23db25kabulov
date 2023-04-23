@@ -26,7 +26,7 @@ block content
   script.
     document.forms['educationForm'].addEventListener('submit', (event) => {
       event.preventDefault();
-      // TODO do something here to show user that form is being submitted
+      //do something here to show user that form is being submitted
       fetch(event.target.action, {
         method: 'PUT',
         body: new URLSearchParams(new FormData(event.target)) // event.target is the form
@@ -34,9 +34,9 @@ block content
         return resp.json(); // or resp.text() or whatever the server sends
       }).then((body) => {
         alert("Update succeded")
-        // TODO handle body
+        //handle body
       }).catch((error) => {
-        // TODO handle error
+        //handle error
 
         alert("Update failed " + error );
 
