@@ -1,21 +1,26 @@
 extends layout
 
 block content
-  h1=title
-  - let results = [{Level: "High School |", Type: "GED", Cost: 100,},{Level: "University |", Type: "Bachelor's", Cost: 60000,},{Level: "Grad School |", Type: "PHD", Cost: 20000,},];
-  div(class='container-fluid')
-    div(class='row')
-      - let item_num = 0;
-      each items in results
-        - let item_description = ""
-        each val, key in items
-          - item_description = `${item_description} ${key}: ${val}`
-          br
-        div(class='col-sm-2' type = 'button' onclick = 'buy()') #{item_description}
-        - item_num = item_num + 1;
-    br    
-    script.
-        function buy(){
-            alert("You purchased an item!")
-        }
+	- let create = `dispatch(\"/education/create\")`
+	div(class = "navbar")
+		button(class="btn btn-primary", onclick=create) Create
+	h1= title
+	- let result = results
+	div(class='container-fluid')
+			each item in result
+				- let destination = `dispatch(\"/education/update?id=${item._id}\")`
+				- let deleteEducation = `dispatch(\"/education/delete?id=${item._id}\")`
+				- let detailEducation = `dispatch(\"/education/detail?id=${item._id}\")`
+				div(class="row-sm-2", class="m-1 textDis") #{item.Cost} is the Cost of #{item.Type} Degree from #{item.Level}.
+					button.btn(class="btn-success ml-l", onclick=destination) Update
+					button.btn(class="btn btn-secondary ml-l" onclick=detailEducation) Details
+					button.btn(class="btn btn-danger ml-l", onclick=deleteEducation) Delete
+	br
+	script.
+		function buy(){
+			alert(`You purchased an item`)
+		}
+		function dispatch(path){
+			window.location.href = path
+		}
         

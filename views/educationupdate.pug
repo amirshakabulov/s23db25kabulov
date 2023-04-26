@@ -15,13 +15,13 @@ block content
   form(id='educationForm', action= actionid, method="PUT")
     div.form-group
       label.educationAttr(for='Level') education level
-      input#education_level(type='text', name='Level', value= educationlevel )
+      input#educationlevel(type='text', name='Level', value= educationlevel )
     div.form-group
       label.educationAttr(for='Type') education type
-      input#type(type='text', name='Type', value= educationtype )
+      input#educationtype(type='text', name='Type', value= educationtype )
     div.form-group
       label.educationAttr(for='Cost') education cost
-      input#cost(type='number', name='Cost', value= educationcost )
+      input#educationcost(type='number', name='Cost', value= educationcost )
     input(type="submit")
   script.
     document.forms['educationForm'].addEventListener('submit', (event) => {
@@ -38,7 +38,7 @@ block content
       }).catch((error) => {
         //handle error
 
-        alert("Update failed " + error );
-
+        alert("Invalid numer of Cost:must be between 1 and 1000000\n\n" + "Update failed " + error);
+        document.getElementById("error").innerHTML = "invalid Cost "
       });
     });
